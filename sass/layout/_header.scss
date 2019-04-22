@@ -1,0 +1,56 @@
+.header {
+    height: 85vh;
+    background-image: linear-gradient(to right bottom, 
+    rgba($color-primary-light, 0.8), 
+    rgba($color-primary-dark, 0.8)), 
+    url(../img/hero-small.jpg);
+    background-size: cover; //thông thường sẽ để cover vì nó sẽ đẹp
+    background-position: top;
+    position: relative; /*phụ thuộc vào vị trí trước đó của nó*/ 
+
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%); // 4 điểm của tứ giác (x1 y1, x2 y2, x3 y3, x4 y4), theo chiều từ trái qua phải, chiều kim đồng hồ
+
+    @support(clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+        height: 95vh;
+    }
+    
+    @media (min-resolution: 192dpi) and (min-width: 37.5em), //if the resolution is higher than 192dpi (have 2x - high resolution creen) and width > 600px(37.5em), code will be applied (display high resolution images)
+            // not work in safari
+            (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em),
+           (min-width: 125em) { //1x screen - lower resolution 2000px
+           background-image: linear-gradient(to right bottom, 
+           rgba($color-primary-light, 0.8), 
+           rgba($color-primary-dark, 0.8)), 
+           url(../img/hero.jpg);
+    }
+    
+    @include respond(phone) {
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+    }
+    
+    &_logo-box {
+        position: absolute; /*phụ thuộc vào vị trí thành phần ba mẹ, là vị trí relative*/ 
+        top: 4rem;
+        left: 4rem; 
+    }
+
+    &_logo {
+        height: 3.5rem;
+     }
+
+     &_logo:hover {
+        animation: moveInRight 10s ease-out;
+    }
+
+     &_text-box {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%); /*moving*/
+        text-align: center; /*to set every element in the text box to be at the center, including the button "discover.."*/
+    }
+}

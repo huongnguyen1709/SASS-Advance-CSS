@@ -1,0 +1,99 @@
+.btn {
+    &--animated {
+        animation: moveInBottom .5s ease-out .75s; /*cái cuối là animation delay*/
+        animation-fill-mode: backwards; /* The element will get the style values that is set by the first keyframe (depends on animation-direction), and retain this during the animation-delay period*/
+    }
+    
+    &, //to select button, vi button ko có những pseduo class như link hay visited
+    &:link,
+    &:visited {
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 1.5rem 4rem; /*top & bottom, left & right*/
+        display: inline-block; /*set inline-block to see it as a text in text-box*/
+        border-radius: 10rem; /* để làm tròn các góc cạnh của nút*/
+        transition: all .2s;  // khi mouse click, button will animated in 2 seconds
+        position: relative; /*set relative để làm reference cho .btn::after*/   
+        font-size: $default-font-size;
+
+        //Change for the <button> element
+        border: none;
+        cursor: pointer;
+    }
+    
+    &:hover {
+        transform: translateY(-.3rem);
+        box-shadow: 0 1rem 2rem rgba($color-black,.2);
+        /*If only two values are given, they are interpreted as <offset-x> <offset-y> values.
+            If a third value is given, it is interpreted as a <blur-radius>.
+            If a fourth value is given, it is interpreted as a <spread-radius>.*/
+
+        &::after { //phóng to element behind the button
+            transform: scaleX(1.4) scaleY(1.6);
+            opacity: 0;
+        }
+    }
+    
+    &:active,
+    &:focus {
+        outline: none;
+        transform: translateY(-.1rem);
+        box-shadow: 0 5px 10px rgba($color-black,.2);
+    }
+    
+    &--white {
+        background-color: $color-white;
+        color: $color-grey-dark;
+
+        &::after {
+            background-color: $color-white;
+        }
+    }
+
+    &--green {
+        background-color: $color-primary;
+        color: $color-white;
+
+        &::after {
+            background-color: $color-primary;
+        }
+    }
+    
+    &::after {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+        border-radius: 10rem;
+        position: absolute; /*set theo thành phần relative là .btn:visited, nếu ko set .btn:visited thành relative thì .btn::after sẽ theo relative là header */
+        top: 0;
+        left: 0;
+        z-index: -1; /*defines the position of the element if they are on top of another, -1 sẽ được xếp nằm dưới */
+        transition: all .4s;
+    } 
+}
+
+.btn-text {
+    &:link,
+    &:visited {
+        font-size: $default-font-size;
+        color: $color-primary;
+        display: inline-block;
+        text-decoration: none;
+        border-bottom: 1px solid $color-primary;
+        padding: 3px;
+        transition: all .2s;
+    }
+
+    &:hover {
+        background-color: $color-primary;
+        color: $color-white;
+        box-shadow: 0 1rem 2rem rgba($color-black, .15);
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        box-shadow: 0 .5rem 1rem rgba($color-black, .15);
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,84 @@
+.story {
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 3rem 6rem rgba($color-black, .1);
+    background-color: rgba($color-white, .6);
+    border-radius: 3px;
+    padding: 6rem;
+    padding-left: 9rem; //để include được lun cả image, sau khi move image sang trái 3rem (move image theo trục x -3rem)
+    font-size: $default-font-size;
+    transform: skewX(-12deg);
+
+    @include respond(tab-port) {
+        width: 100%;
+        padding: 4rem;
+        padding-left: 7rem;
+    }
+
+    @include respond(phone) {
+        transform: skewX(0);
+    }
+
+    &_shape { // để image
+        width: 15rem;
+        height: 15rem;
+        float: left; //để shape về bên trái
+        transform: translateX(-3rem) skewX(12deg); //move image theo trục x -3rem, và để image về vị trí cũ (ko bị skewX -12deg nữa)
+        position: relative; 
+        overflow: hidden;
+        border-radius: 50%;
+
+        @support(clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) { //firefox
+            -webkit-shape-outside: circle(50% at 50% 50%); 
+            shape-outside: circle(50% at 50% 50%); 
+            //first number is radius ò the circle mà dòng chữ sẽ bao quanh (will be half of the height and width of element - 7.5rem), second and third number mean center of the circle vertically and horizontally
+            // để dòng chữ floating around center of circle
+            -webkit-clip-path: circle(50% at 50% 50%);
+            clip-path: circle(50% at 50% 50%); //định dạng circle of image
+            border-radius: none;
+        }
+
+        @include respond(phone) {
+            transform: translateX(-3rem) skewX(0);
+        }
+    }
+
+    &_img {
+        height: 100%; //vì image inside of the shape nên nếu để 100% thì image sẽ fit to shape
+        transform: translateX(-4rem) scale(1.4);
+        backface-visibility: hidden;
+        transition: all .5s;
+    }
+
+    &_text {
+        transform: skewX(12deg); //để text về vị trí cũ
+
+        @include respond(phone) {
+            transform: skewX(0);
+        }
+    }
+
+    &_caption {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 20%);
+        color: $color-white;
+        text-transform: uppercase;
+        font-size: 1.7rem;
+        text-align: center; 
+        opacity: 0; //để caption invisible
+        transition: all .5s;
+        backface-visibility: hidden; //để ko thấy 1 scratch nhỏ xíu cỡ 1px
+    }
+
+    &:hover &_caption {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    &:hover &_img {
+        transform: translateX(-4rem) scale(1);
+        filter: blur(3px) brightness(80%);
+    }
+}
