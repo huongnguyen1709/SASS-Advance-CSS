@@ -2,7 +2,7 @@
 
 ## HTML, CSS, SASS
 
-Demo [GitHub Pages](https://huongnguyen1709.github.io/Natours-SASS-Advance-CSS/).
+Demo [GitHub Pages](https://huongnguyen1709.github.io/natours-sass-advance-css/).
 
 
 
